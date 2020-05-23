@@ -50,5 +50,13 @@ public class GraphDfs<T> implements Graph<T> {
         }
         visited.remove(source);
     }
+
+    public Map<T, Set<T>> getVertexCollection() {
+        return vertexCollection;
+    }
+
+    public boolean isUndirected() {
+        return isUndirected;
+    }
 }
 
