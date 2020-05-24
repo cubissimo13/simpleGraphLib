@@ -32,8 +32,8 @@ public class Main {
         graph.addEdge(7, Set.of(4, 5));
         graph.addEdge(8, Set.of(2));
         graph.addEdge(9, Set.of(7));
-        graph.addEdge(10, Set.of(7, 9));
-
+        graph.addEdge(10, Set.of(7, 9, 11));
+        System.out.println(graph.toString());
         List<List<Integer>> path = graph.getPath(8, 9);
         if (path.isEmpty()) {
             System.out.println("there is no path between given vertexes");

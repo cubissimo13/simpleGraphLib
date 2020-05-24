@@ -14,13 +14,21 @@ public class GraphDfs<T> implements Graph<T> {
     }
 
     public void addEdge(T vertex, Set<T> edges) {
+        //Should not add edge to vertex that not presented id graph
         this.vertexCollection.computeIfPresent(vertex, (key, set) -> {
-            set.addAll(edges);
+            for (T edge: edges) {
+                if (this.vertexCollection.containsKey(edge))
+                    set.add(edge);
+            }
             return set;
         });
+        //For unDirected graph should add edge to both vertex
         if (isUndirected) {
             for (T edge : edges) {
-                vertexCollection.get(edge).add(vertex);
+                vertexCollection.computeIfPresent(edge, (key, set) -> {
+                    set.add(vertex);
+                    return set;
+                });
             }
         }
     }
@@ -37,6 +45,7 @@ public class GraphDfs<T> implements Graph<T> {
     }
 
     private void findPath(T source, T destination, List<T> path, Set<T> visited, List<List<T>> result) {
+        //Creates each own path for every level of recursion
         List<T> newPath = new ArrayList<>(path);
         newPath.add(source);
         visited.add(source);
@@ -57,6 +66,14 @@ public class GraphDfs<T> implements Graph<T> {
 
     public boolean isUndirected() {
         return isUndirected;
+    }
+
+    @Override
+    public String toString() {
+        return "GraphDfs{" +
+                "vertexCollection=" + vertexCollection +
+                ", isUndirected=" + isUndirected +
+                '}';
     }
 }
 
